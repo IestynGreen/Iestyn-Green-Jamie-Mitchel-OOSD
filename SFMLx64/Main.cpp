@@ -5,27 +5,44 @@
 #include <SFML/Audio.hpp>
 #include "playerClass.h"
 #include "MainMenu.h"
-
+#include <windows.h>
 
 
 int windowWidth = 1536;
 int windowHeight = 865;
 
+
 using namespace sf;
 using namespace std;
 
+int windowHeightX = windowHeight;
+int windowWidthX = windowWidth;
+
 int main() {
+    
+   
+
+    cout << windowWidth << windowHeight << endl;
     cout << "fart" << endl;
     //Create the main window
-    RenderWindow app(VideoMode(windowWidth, windowHeight), "Platformer");
+    
+   
+    
+    RenderWindow app(VideoMode(windowWidthX, windowHeightX), "Platformer");
+    
+
+    
+       
+    
+
     MainMenu mainMenu(app.getSize().x, app.getSize().y);
     bool playerUp, playerDown, playerLeft, playerRight = false;
     playerClass playerObject;
     Texture texture, back;
 
-    texture.loadFromFile("C:/Users/iesty/Documents/GLP/SFMLx64/assets/images/animation.png");
+    texture.loadFromFile("../assets/images/animation.png");
 
-    back.loadFromFile("C:/Users/iesty/Documents/GLP/SFMLx64/assets/images/bckgrnd.png");
+    back.loadFromFile("../assets/images/bckgrnd.png");
 
     IntRect Size(0, 432, 865, 1563);
     Sprite bckgrnd(back, Size);
@@ -36,6 +53,11 @@ int main() {
     IntRect rectSourceSprite4(0, 150, 50, 50);
     Sprite sprite(texture, rectSourceSprite4);
     Clock clock;
+    int fullscreen = 0;
+    int music = 1;
+    bool MusicPlay = true;
+
+    cout << fullscreen << endl;
 
 
 
@@ -43,39 +65,82 @@ int main() {
     RectangleShape background;
     background.setSize(Vector2f(1536, 865));
     Texture Maintexture;
-    Maintexture.loadFromFile("C:/Users/iesty/Documents/GLP/SFMLx64/assets/images/mainMenu.png");
+    Maintexture.loadFromFile("../assets/images/mainMenu.png");
     background.setTexture(&Maintexture);
 
     //photo to the game
     RectangleShape Pbackground;
     Pbackground.setSize(Vector2f(1536, 865));
     Texture back_texture;
-    back_texture.loadFromFile("C:/Users/iesty/Documents/GLP/SFMLx64/assets/images/background.png");
+    back_texture.loadFromFile("../assets/images/background.png");
     Pbackground.setTexture(&back_texture);
 
     //set background
     RectangleShape NGbackground;
     NGbackground.setSize(Vector2f(1536, 865));
     Texture NGMaintexture;
-    NGMaintexture.loadFromFile("C:/Users/iesty/Documents/GLP/SFMLx64/assets/images/main_menu(ng).png");
+    NGMaintexture.loadFromFile("../assets/images/main_menu(ng).png");
     NGbackground.setTexture(&NGMaintexture);
 
     //set background
     RectangleShape Lbackground;
     Lbackground.setSize(Vector2f(1536, 865));
     Texture LMaintexture;
-    LMaintexture.loadFromFile("C:/Users/iesty/Documents/GLP/SFMLx64/assets/images/main_menu(l).png");
+    LMaintexture.loadFromFile("../assets/images/main_menu(l).png");
     Lbackground.setTexture(&LMaintexture);
+
+    //set background
+    RectangleShape Obackground;
+    Obackground.setSize(Vector2f(1536, 865));
+    Texture OMaintexture;
+    OMaintexture.loadFromFile("../assets/images/main_menu(o).png");
+    Obackground.setTexture(&OMaintexture);
+
+    //set background
+    RectangleShape Ebackground;
+    Ebackground.setSize(Vector2f(1536, 865));
+    Texture EMaintexture;
+    EMaintexture.loadFromFile("../assets/images/main_menu(e).png");
+    Ebackground.setTexture(&EMaintexture);
+
+    //set background
+    RectangleShape Options1;
+    Options1.setSize(Vector2f(1536, 865));
+    Texture options1;
+    options1.loadFromFile("../assets/images/options(1).png");
+    Options1.setTexture(&options1);
+
+    //options fullscreen cross
+    
+    RectangleShape Options2;
+    Options2.setSize(Vector2f(1536, 865));
+    Texture options2;
+    options2.loadFromFile("../assets/images/options(1click).png");
+    Options2.setTexture(&options2);
+
+    //options music cross
+    RectangleShape Music2;
+    Music2.setSize(Vector2f(1536, 865));
+    Texture music2;
+    music2.loadFromFile("../assets/images/options(music).png");
+    Music2.setTexture(&music2);
+
+    //options back
+    RectangleShape Back1;
+    Back1.setSize(Vector2f(1536, 865));
+    Texture back1;
+    back1.loadFromFile("../assets/images/options(back).png");
+    Back1.setTexture(&back1);
 
 
 
     Music level1;
-    level1.openFromFile("C:/Users/iesty/Documents/GLP/SFMLx64/assets/Audio/level1.wav");
-    level1.play();
+    level1.openFromFile("../assets/Audio/level1.wav");
+    
 
     
     SoundBuffer buffer1;
-    if (!buffer1.loadFromFile("C:/Users/iesty/Documents/GLP/SFMLx64/assets/Audio/jumpsound.wav")) {
+    if (!buffer1.loadFromFile("../assets/Audio/jumpsound.wav")) {
         cout << "Error" << endl;
     }
 
@@ -83,7 +148,7 @@ int main() {
     jump.setBuffer(buffer1);
 
     SoundBuffer buffer2;
-    if (!buffer2.loadFromFile("C:/Users/iesty/Documents/GLP/SFMLx64/assets/Audio/falling.wav")) {
+    if (!buffer2.loadFromFile("../assets/Audio/falling.wav")) {
         cout << "Error" << endl;
     }
 
@@ -93,8 +158,9 @@ int main() {
     
 
      //Start the game loop
-    while (app.isOpen())
-    {
+    while (app.isOpen()){
+    
+       
        
         //Process events
         Event event{};
@@ -124,28 +190,57 @@ int main() {
             
 
         }
-        if (Mouse::isButtonPressed(Mouse::Left) && mousePos.x > 740 && mousePos.x < 815 && mousePos.y > 700 && mousePos.y < 850) {
+        if (Mouse::isButtonPressed(Mouse::Left) && mousePos.x > 770 && mousePos.x < 950 && mousePos.y > 700 && mousePos.y < 850) {
             cout << "YESY" << endl;
             x = 2;
             
 
         }
+
+        if (Mouse::isButtonPressed(Mouse::Left) && mousePos.x > 970 && mousePos.x < 1150 && mousePos.y > 700 && mousePos.y < 850) {
+            cout << "YESY" << endl;
+            x = 3;
+
+
+        }
+
         
         
-                cout << x << endl;
-                
+                //cout << x << endl;
+                //Play
                 if (x == 0)
                 {
+                    RenderWindow PLAY(VideoMode(windowWidth, windowHeight), "SPACE MAN GAME THINGY");
+                    if (MusicPlay == true) {
+                        level1.play();
+                    }
                     
-                    while (app.isOpen()) {
+                    while (PLAY.isOpen()) {
                         Event aevent;
-                        while (app.pollEvent(aevent)) {
+                        while (PLAY.pollEvent(aevent)) {
                             if (aevent.type == Event::Closed) {
-                                app.close();
+                                playerObject.xpos = 0;
+                                playerObject.ypos = 0;
+                                playerObject.yvel = 1;
+                                playerObject.xvel = 0;
+                                level1.stop();
+                                clock.restart();
+                                PLAY.clear();
+                                
+                                PLAY.close();
                             }
                             if (aevent.type == Event::KeyPressed) {
                                 if (aevent.key.code == Keyboard::Escape) {
-                                    app.close();
+                                    playerObject.xpos = 0;
+                                    playerObject.ypos = 0;
+                                    playerObject.yvel = 1;
+                                    playerObject.xvel = 0;
+                                    level1.stop();
+                                    clock.restart();
+                                    PLAY.clear();
+
+                                   
+                                    PLAY.close();
                                 }
                             }
                         }
@@ -153,8 +248,8 @@ int main() {
                         //ABOUT.close();
                         //Play.clear();
                         //Play.display();
-                        app.draw(Pbackground);
-                        app.draw(sprite);
+                        PLAY.draw(Pbackground);
+                        PLAY.draw(sprite);
                         //animations
                         //move right
                         if (playerObject.xvel > 0 && playerObject.yvel == 0) {
@@ -229,54 +324,133 @@ int main() {
                         if (!(Keyboard::isKeyPressed(Keyboard::Left))) playerLeft = false;
                         if (!(Keyboard::isKeyPressed(Keyboard::Right))) playerRight = false;
                         sprite.move(Vector2f(playerObject.xvel, playerObject.yvel));
-                        app.display();
+                        PLAY.display();
                         playerObject.update(playerUp, playerDown, playerRight, playerLeft);
                     }
                 }
+                //About
                 if (x == 1) {
-                    RenderWindow OPTIONS(VideoMode(960, 720), "OPTIONS");
+                    RenderWindow LOAD(VideoMode(windowWidth, windowHeight), "LOAD");
+                    while (LOAD.isOpen()) {
+                        while (LOAD.isOpen()) {
+                            Event aevent;
+                            while (LOAD.pollEvent(aevent)) {
+                                if (aevent.type == Event::Closed) {
+                                    
+                                    LOAD.close();
+                                }
+                                if (aevent.type == Event::KeyPressed) {
+                                    if (aevent.key.code == Keyboard::Escape) {
+                                    
+                                        LOAD.close();
+                                    }
+                                }
+                            }
+                            
+                            //OPTIONS.clear();
+                            LOAD.clear();
+                            LOAD.display();
+                        }
+                    }
+                }
+                
+                //Options
+                if (x == 2) {
+                    cout << fullscreen << endl;
                     
+                    cout << "Options" << endl;
+                    RenderWindow OPTIONS(VideoMode(windowWidth, windowHeight), "OPTIONS");
+                    
+
                     while (OPTIONS.isOpen()) {
                         Event aevent;
                         while (OPTIONS.pollEvent(aevent)) {
                             if (aevent.type == Event::Closed) {
+                                app.display();
                                 OPTIONS.close();
                             }
                             if (aevent.type == Event::KeyPressed) {
                                 if (aevent.key.code == Keyboard::Escape) {
+                                    app.display();
                                     OPTIONS.close();
+                                    
                                 }
                             }
                         }
-                        app.close();
-                        OPTIONS.clear();
-                      //  ABOUT.close();
+                        int x = mainMenu.MainMenuPressed();
+                        Vector2i mousePos = Mouse::getPosition(OPTIONS);
+                     //   cout << mousePos.x << "-" << mousePos.y << endl;
 
+                        //FULLSCREEN
+                        if (Mouse::isButtonPressed(Mouse::Left) && mousePos.x > 1194 && mousePos.x < 1262 && mousePos.y > 186 && mousePos.y < 258) {
+                            Time elapsed1 = clock.getElapsedTime();
+                            if (elapsed1.asMilliseconds() > 100) {
+                                cout << "CLICK" << endl;
+                                fullscreen += 1;
+
+                                
+                                clock.restart();
+                            }
+                        }
+
+                        //MUSIC
+                        if (Mouse::isButtonPressed(Mouse::Left) && mousePos.x > 1194 && mousePos.x < 1262 && mousePos.y > 335 && mousePos.y < 405) {
+                            Time elapsed1 = clock.getElapsedTime();
+                            if (elapsed1.asMilliseconds() > 100) {
+                                cout << "CLICK" << endl;
+                                music += 1;
+
+
+                                clock.restart();
+                            }
+                        }
+
+
+
+                        //BACK
+                        if (Mouse::isButtonPressed(Mouse::Left) && mousePos.x > 1281 && mousePos.x < 1496 && mousePos.y > 737 && mousePos.y < 837) {
+                            OPTIONS.close();
+                        }
+                      
+                        //app.close();
+                        OPTIONS.clear();
+                        //ABOUT.close();
+                        
+                        OPTIONS.draw(Options1);
+
+                        if (mousePos.x > 1281 && mousePos.x < 1496 && mousePos.y > 737 && mousePos.y < 837) {
+                            OPTIONS.draw(Back1);
+                        }
+
+                        if (fullscreen % 2 != 0) {
+                            OPTIONS.draw(Options2);
+                            
+                           windowWidthX = 0;
+                           windowHeightX = 0;
+                           //OPTIONS.close();
+                           OPTIONS.create(VideoMode(windowWidth, windowHeight), "Platformer", Style::Fullscreen);
+                           
+                            
+                            
+                            cout << windowWidth << windowHeight << endl;
+                           
+
+                        }
+
+                        if (music % 2 != 0) {
+                            OPTIONS.draw(Music2);
+                            MusicPlay = true;
+                            
+                        }
+                        if (music % 2 == 0) {
+                            MusicPlay = false;
+                        }
                         OPTIONS.display();
+                        
+                        
                     }
                 }
-                if (x == 2) {
-                    RenderWindow ABOUT(VideoMode(960, 720), "ABOUT");
-                    while (ABOUT.isOpen()) {
-                        while (ABOUT.isOpen()) {
-                            Event aevent;
-                            while (ABOUT.pollEvent(aevent)) {
-                                if (aevent.type == Event::Closed) {
-                                    ABOUT.close();
-                                }
-                                if (aevent.type == Event::KeyPressed) {
-                                    if (aevent.key.code == Keyboard::Escape) {
-                                        ABOUT.close();
-                                    }
-                                }
-                            }
-                            app.close();
-                            //OPTIONS.clear();
-                            ABOUT.clear();
-                            ABOUT.display();
-                        }
-                    }
-                    if (x == 3)
+                    if (x == 3){
                         app.close();
                         break;
                 }
@@ -290,8 +464,16 @@ int main() {
             app.draw(Lbackground);
             cout << "YES" << endl;
         }
+        if (mousePos.x > 770 && mousePos.x < 950 && mousePos.y > 700 && mousePos.y < 850) {
+            app.draw(Obackground);
+            cout << "YES" << endl;
+        }
+        if (mousePos.x > 970 && mousePos.x < 1150 && mousePos.y > 700 && mousePos.y < 850) {
+            app.draw(Ebackground);
+            cout << "YES" << endl;
+        }
 
-        if (!(mousePos.x > 390 && mousePos.x < 565 && mousePos.y > 700 && mousePos.y < 850)|| mousePos.x > 585 && mousePos.x < 760 && mousePos.y > 700 && mousePos.y < 850) {
+        if (!((mousePos.x > 390 && mousePos.x < 565 && mousePos.y > 700 && mousePos.y < 850) || mousePos.x > 585 && mousePos.x < 760 && mousePos.y > 700 && mousePos.y < 850 || mousePos.x > 770 && mousePos.x < 950 && mousePos.y > 700 && mousePos.y < 850 || mousePos.x > 970 && mousePos.x < 1150 && mousePos.y > 700 && mousePos.y < 850)) {
             app.draw(background);
         }
         

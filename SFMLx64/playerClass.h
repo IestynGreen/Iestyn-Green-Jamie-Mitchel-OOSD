@@ -30,6 +30,15 @@ public:
         yvel = 1;
         clock.restart();
     }
+    void restart(bool restart) {
+        if (restart == true) {
+            xpos = 0;
+            ypos = 0;
+            xvel = 0;
+            yvel = 1;
+            clock.restart();
+        }
+    }
 
     void update(bool playerUp, bool playerDown, bool playerRight, bool playerLeft) {
         if (playerRight) {
@@ -51,6 +60,8 @@ public:
             if (elapsed1.asMilliseconds() > 500) {
                 //clock.restart();
                 playerUp = false;
+
+                clock.restart();
             }
             yvel -= 1;
         }
@@ -81,7 +92,7 @@ public:
            // cout << yvel << endl;
         }
         else {
-            clock.restart();
+            
         }
 
         xpos += xvel;

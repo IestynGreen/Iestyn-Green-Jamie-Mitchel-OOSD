@@ -33,4 +33,90 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\assets\images\1.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\assets\images\1_19tmLBmVPfbohCvb7HgJFg.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\assets\images\AAA.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\assets\images\animation.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\assets\images\Arial_font_2021-11-28_14-10-13.jpg">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\assets\images\Arial-Font.jpg">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\assets\images\background.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\assets\images\bckgrnd.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\assets\images\jump.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\assets\images\main_menu(e).png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\assets\images\main_menu(l).png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\assets\images\main_menu(ng).png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\assets\images\main_menu(o).png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\assets\images\options(1).png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\assets\images\options(1click).png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\assets\images\options(back).png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\assets\images\options(music).png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\assets\images\options(SE).png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\assets\images\options.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\assets\images\run.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\assets\images\mainMenu.png">
+      <Filter>Assets</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="..\assets\images\arial.ttf">
+      <Filter>Assets</Filter>
+    </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\assets\images\arial.zip">
+      <Filter>Assets</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="..\assets\Audio\falling.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\assets\Audio\jumpsound.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\assets\Audio\level1.wav">
+      <Filter>Assets</Filter>
+    </Media>
+  </ItemGroup>
 </Project>

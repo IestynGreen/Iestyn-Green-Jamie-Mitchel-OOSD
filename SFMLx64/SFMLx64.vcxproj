@@ -152,6 +152,40 @@
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="playerClass.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\assets\images\1.png" />
+    <Image Include="..\assets\images\1_19tmLBmVPfbohCvb7HgJFg.png" />
+    <Image Include="..\assets\images\AAA.png" />
+    <Image Include="..\assets\images\animation.png" />
+    <Image Include="..\assets\images\Arial-Font.jpg" />
+    <Image Include="..\assets\images\Arial_font_2021-11-28_14-10-13.jpg" />
+    <Image Include="..\assets\images\background.png" />
+    <Image Include="..\assets\images\bckgrnd.png" />
+    <Image Include="..\assets\images\jump.png" />
+    <Image Include="..\assets\images\mainMenu.png" />
+    <Image Include="..\assets\images\main_menu(e).png" />
+    <Image Include="..\assets\images\main_menu(l).png" />
+    <Image Include="..\assets\images\main_menu(ng).png" />
+    <Image Include="..\assets\images\main_menu(o).png" />
+    <Image Include="..\assets\images\options(1).png" />
+    <Image Include="..\assets\images\options(1click).png" />
+    <Image Include="..\assets\images\options(back).png" />
+    <Image Include="..\assets\images\options(music).png" />
+    <Image Include="..\assets\images\options(SE).png" />
+    <Image Include="..\assets\images\options.png" />
+    <Image Include="..\assets\images\run.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="..\assets\images\arial.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\assets\images\arial.zip" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="..\assets\Audio\falling.wav" />
+    <Media Include="..\assets\Audio\jumpsound.wav" />
+    <Media Include="..\assets\Audio\level1.wav" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
