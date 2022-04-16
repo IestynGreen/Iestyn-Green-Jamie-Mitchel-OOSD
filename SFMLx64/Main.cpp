@@ -8,6 +8,20 @@
 #include <windows.h>
 
 
+//TODO LIST
+//World map assets
+//Fix the fullscreen
+//Make the ave button work in options
+//Make Load assets
+//Make the game saveable
+//Make a collidable class (Enemy)
+//Make the platform
+//Make a start and end to each level (maybe draw flag assset or something)
+
+
+
+
+
 int windowWidth = 1536;
 int windowHeight = 865;
 
@@ -54,7 +68,9 @@ int main() {
     Clock clock;
     int fullscreen = 0;
     int music = 1;
+    int SE = 1;
     bool MusicPlay = true;
+    bool SEPlay = true;
 
     cout << fullscreen << endl;
 
@@ -124,6 +140,13 @@ int main() {
     music2.loadFromFile("../assets/images/options(music).png");
     Music2.setTexture(&music2);
 
+    //options music cross
+    RectangleShape SE2;
+    SE2.setSize(Vector2f(1536, 865));
+    Texture se2;
+    se2.loadFromFile("../assets/images/options(SE).png");
+    SE2.setTexture(&se2);
+
     //options back
     RectangleShape Back1;
     Back1.setSize(Vector2f(1536, 865));
@@ -137,6 +160,13 @@ int main() {
     Texture load;
     load.loadFromFile("../assets/images/LoadScreen.png");
     Load.setTexture(&load);
+
+    //Load Back Screen
+    RectangleShape Load1;
+    Load1.setSize(Vector2f(1536, 865));
+    Texture load1;
+    load1.loadFromFile("../assets/images/LoadScreen(Back).png");
+    Load1.setTexture(&load1);
 
 
 
@@ -323,7 +353,7 @@ int main() {
                             rectSourceSprite3.left = 0;
                             rectSourceSprite4.left = 0;
                         }
-                        if (Keyboard::isKeyPressed(Keyboard::Space) && playerObject.yvel == 0) {
+                        if (Keyboard::isKeyPressed(Keyboard::Space) && playerObject.yvel == 0 && SEPlay == true) {
                             jump.play();
                         }
                         if (Keyboard::isKeyPressed(Keyboard::Right)) playerRight = true;
@@ -341,9 +371,10 @@ int main() {
                 }
                 //Load
                 if (x == 1) {
+                    
                     app.close();
                     RenderWindow LOAD(VideoMode(windowWidth, windowHeight), "LOAD");
-                    while (LOAD.isOpen()) {
+                    
                         while (LOAD.isOpen()) {
                             Event aevent;
                             while (LOAD.pollEvent(aevent)) {
@@ -359,15 +390,34 @@ int main() {
                                     }
                                 }
                             }
+
+                            Vector2i mousePos = Mouse::getPosition(LOAD);
+                            cout << mousePos.x << "-" << mousePos.y << endl;
+
+                            LOAD.clear();
+                            LOAD.draw(Load);
+
+                            if (mousePos.x > 1281 && mousePos.x < 1496 && mousePos.y > 737 && mousePos.y < 837) {
+                                cout << "awooofa";
+                                LOAD.draw(Load1);
+                            }
+
+                            //BACK
+                            if (Mouse::isButtonPressed(Mouse::Left) && mousePos.x > 1281 && mousePos.x < 1496 && mousePos.y > 737 && mousePos.y < 837) {
+                                LOAD.close();
+                                app.create(VideoMode(windowWidthX, windowHeightX), "Platformer");
+                            }
+
+                            
                             
                             //OPTIONS.clear();
                             
-                            LOAD.clear();
-                            LOAD.draw(Load);
+                            
                             LOAD.display();
+                            
                         }
                     }
-                }
+                
                 
                 //Options
                 if (x == 2) {
@@ -396,7 +446,7 @@ int main() {
                         }
                         int x = mainMenu.MainMenuPressed();
                         Vector2i mousePos = Mouse::getPosition(OPTIONS);
-                     //   cout << mousePos.x << "-" << mousePos.y << endl;
+                        cout << mousePos.x << "-" << mousePos.y << endl;
 
                         //FULLSCREEN
                         if (Mouse::isButtonPressed(Mouse::Left) && mousePos.x > 1194 && mousePos.x < 1262 && mousePos.y > 186 && mousePos.y < 258) {
@@ -416,6 +466,19 @@ int main() {
                             if (elapsed1.asMilliseconds() > 100) {
                                 cout << "CLICK" << endl;
                                 music += 1;
+
+
+                                clock.restart();
+                            }
+                        }
+
+
+                        //Sound Effect
+                        if (Mouse::isButtonPressed(Mouse::Left) && mousePos.x > 1194 && mousePos.x < 1262 && mousePos.y > 477 && mousePos.y < 546) {
+                            Time elapsed1 = clock.getElapsedTime();
+                            if (elapsed1.asMilliseconds() > 100) {
+                                cout << "CLICK" << endl;
+                                SE += 1;
 
 
                                 clock.restart();
@@ -460,8 +523,15 @@ int main() {
                             MusicPlay = true;
                             
                         }
+                        if (SE % 2 != 0) {
+                            OPTIONS.draw(SE2);
+                            SEPlay = true;
+                        }
                         if (music % 2 == 0) {
                             MusicPlay = false;
+                        }
+                        if (SE % 2 == 0) {
+                            SEPlay = false;
                         }
                         OPTIONS.display();
                         
