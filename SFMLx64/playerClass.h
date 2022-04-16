@@ -62,6 +62,7 @@ public:
                 playerUp = false;
 
                 clock.restart();
+
             }
             yvel -= 1;
         }

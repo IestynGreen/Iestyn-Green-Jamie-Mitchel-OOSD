@@ -32,8 +32,7 @@ int main() {
     
 
     
-       
-    
+   
 
     MainMenu mainMenu(app.getSize().x, app.getSize().y);
     bool playerUp, playerDown, playerLeft, playerRight = false;
@@ -131,6 +130,14 @@ int main() {
     Texture back1;
     back1.loadFromFile("../assets/images/options(back).png");
     Back1.setTexture(&back1);
+
+    //Load Screen
+    RectangleShape Load;
+    Load.setSize(Vector2f(1536, 865));
+    Texture load;
+    load.loadFromFile("../assets/images/LoadScreen.png");
+    Load.setTexture(&load);
+
 
 
 
@@ -255,6 +262,7 @@ int main() {
                         PLAY.draw(sprite);
                         //animations
                         //move right
+
                         if (playerObject.xvel > 0 && playerObject.yvel == 0) {
                             if (clock.getElapsedTime().asSeconds() > 0.2f) {
                                 if (rectSourceSprite.left == 200)
@@ -331,7 +339,7 @@ int main() {
                         playerObject.update(playerUp, playerDown, playerRight, playerLeft);
                     }
                 }
-                //About
+                //Load
                 if (x == 1) {
                     app.close();
                     RenderWindow LOAD(VideoMode(windowWidth, windowHeight), "LOAD");
@@ -353,7 +361,9 @@ int main() {
                             }
                             
                             //OPTIONS.clear();
+                            
                             LOAD.clear();
+                            LOAD.draw(Load);
                             LOAD.display();
                         }
                     }
