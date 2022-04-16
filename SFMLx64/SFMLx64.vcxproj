@@ -162,6 +162,7 @@
     <Image Include="..\assets\images\background.png" />
     <Image Include="..\assets\images\bckgrnd.png" />
     <Image Include="..\assets\images\jump.png" />
+    <Image Include="..\assets\images\LoadScreen.png" />
     <Image Include="..\assets\images\mainMenu.png" />
     <Image Include="..\assets\images\main_menu(e).png" />
     <Image Include="..\assets\images\main_menu(l).png" />

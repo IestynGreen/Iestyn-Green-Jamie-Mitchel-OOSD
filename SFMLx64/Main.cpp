@@ -210,6 +210,7 @@ int main() {
                 //Play
                 if (x == 0)
                 {
+                    app.close();
                     RenderWindow PLAY(VideoMode(windowWidth, windowHeight), "SPACE MAN GAME THINGY");
                     if (MusicPlay == true) {
                         level1.play();
@@ -226,6 +227,7 @@ int main() {
                                 level1.stop();
                                 clock.restart();
                                 PLAY.clear();
+                                app.create(VideoMode(windowWidthX, windowHeightX), "Platformer");
                                 
                                 PLAY.close();
                             }
@@ -238,6 +240,7 @@ int main() {
                                     level1.stop();
                                     clock.restart();
                                     PLAY.clear();
+                                    app.create(VideoMode(windowWidthX, windowHeightX), "Platformer");
 
                                    
                                     PLAY.close();
@@ -330,19 +333,21 @@ int main() {
                 }
                 //About
                 if (x == 1) {
+                    app.close();
                     RenderWindow LOAD(VideoMode(windowWidth, windowHeight), "LOAD");
                     while (LOAD.isOpen()) {
                         while (LOAD.isOpen()) {
                             Event aevent;
                             while (LOAD.pollEvent(aevent)) {
                                 if (aevent.type == Event::Closed) {
-                                    
+                                    app.create(VideoMode(windowWidthX, windowHeightX), "Platformer");
                                     LOAD.close();
                                 }
                                 if (aevent.type == Event::KeyPressed) {
                                     if (aevent.key.code == Keyboard::Escape) {
-                                    
+                                        app.create(VideoMode(windowWidthX, windowHeightX), "Platformer");
                                         LOAD.close();
+
                                     }
                                 }
                             }
@@ -356,6 +361,7 @@ int main() {
                 
                 //Options
                 if (x == 2) {
+                    app.close();
                     cout << fullscreen << endl;
                     
                     cout << "Options" << endl;
@@ -366,12 +372,13 @@ int main() {
                         Event aevent;
                         while (OPTIONS.pollEvent(aevent)) {
                             if (aevent.type == Event::Closed) {
-                                app.display();
+                                
+                                app.create(VideoMode(windowWidthX, windowHeightX), "Platformer");
                                 OPTIONS.close();
                             }
                             if (aevent.type == Event::KeyPressed) {
                                 if (aevent.key.code == Keyboard::Escape) {
-                                    app.display();
+                                    app.create(VideoMode(windowWidthX, windowHeightX), "Platformer");
                                     OPTIONS.close();
                                     
                                 }
@@ -410,6 +417,7 @@ int main() {
                         //BACK
                         if (Mouse::isButtonPressed(Mouse::Left) && mousePos.x > 1281 && mousePos.x < 1496 && mousePos.y > 737 && mousePos.y < 837) {
                             OPTIONS.close();
+                            app.create(VideoMode(windowWidthX, windowHeightX), "Platformer");
                         }
                       
                         //app.close();
