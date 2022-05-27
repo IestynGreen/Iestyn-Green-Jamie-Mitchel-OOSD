@@ -210,7 +210,7 @@ int main() {
         
         if (Mouse::isButtonPressed(Mouse::Left) && mousePos.x > 390 && mousePos.x < 565 && mousePos.y > 700 && mousePos.y < 850) {
             
-            
+            x = 0;
             sprite.setPosition(playerObject.xpos, playerObject.ypos);
 
         }
