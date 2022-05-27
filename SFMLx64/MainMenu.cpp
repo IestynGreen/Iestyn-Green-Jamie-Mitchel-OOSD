@@ -1,9 +1,7 @@
 #include "MainMenu.h"
 
 MainMenu::MainMenu(float Width, float Height) {
-    if (!font.loadFromFile("C:/Users/iesty/Documents/GLP/SFMLx64/assets/images/arial.ttf")) {
-        cout << "No font is here" << endl;
-    }
+
 
     //Play
     //mainMenu[0].setFont(font);

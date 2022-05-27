@@ -6,14 +6,14 @@
 #include "playerClass.h"
 #include "MainMenu.h"
 #include <windows.h>
+#include "platformClass.h"
+#include "enemyClass.h"
 
 
 //TODO LIST
 //World map assets
-//Fix the fullscreen
 //Make the ave button work in options
 //Make Load assets
-//Make the game saveable
 //Make a collidable class (Enemy)
 //Make the platform
 //Make a start and end to each level (maybe draw flag assset or something)
@@ -29,33 +29,33 @@ int windowHeight = 865;
 using namespace sf;
 using namespace std;
 
+
 int windowHeightX = windowHeight;
 int windowWidthX = windowWidth;
-
+sf::View view2(sf::Vector2f(350.f, 300.f), sf::Vector2f(1536.f, 865.f));
 int main() {
-    
-   
 
-    cout << windowWidth << windowHeight << endl;
-    cout << "fart" << endl;
+    std::cout << windowWidth << windowHeight << endl;
     //Create the main window
     
    
     
     RenderWindow app(VideoMode(windowWidthX, windowHeightX), "Platformer");
+    //void sf::Window::setFramerateLimit(20);
     
-
     
    
 
     MainMenu mainMenu(app.getSize().x, app.getSize().y);
     bool playerUp, playerDown, playerLeft, playerRight = false;
     playerClass playerObject;
-    Texture texture, back;
+    enemyClass enemyObject;
+    platformClass platforms[2];
+    Texture texture,back,enemyt;
 
     texture.loadFromFile("../assets/images/animation.png");
-
     back.loadFromFile("../assets/images/bckgrnd.png");
+    enemyt.loadFromFile("../assets/images/jmp_2.png");
 
     IntRect Size(0, 432, 865, 1563);
     Sprite bckgrnd(back, Size);
@@ -65,6 +65,8 @@ int main() {
     IntRect rectSourceSprite3(0, 100, 50, 50);
     IntRect rectSourceSprite4(0, 150, 50, 50);
     Sprite sprite(texture, rectSourceSprite4);
+    Sprite enemysprite(enemyt);
+    enemysprite.setPosition(enemyObject.xpos, enemyObject.ypos);
     Clock clock;
     int fullscreen = 0;
     int music = 1;
@@ -72,7 +74,9 @@ int main() {
     bool MusicPlay = true;
     bool SEPlay = true;
 
-    cout << fullscreen << endl;
+    std::cout << fullscreen << endl;
+
+    
 
 
 
@@ -178,7 +182,7 @@ int main() {
     
     SoundBuffer buffer1;
     if (!buffer1.loadFromFile("../assets/Audio/jumpsound.wav")) {
-        cout << "Error" << endl;
+        std::cout << "Error" << endl;
     }
 
     Sound jump;
@@ -186,7 +190,7 @@ int main() {
 
     SoundBuffer buffer2;
     if (!buffer2.loadFromFile("../assets/Audio/falling.wav")) {
-        cout << "Error" << endl;
+        std::cout << "Error" << endl;
     }
 
     Sound fall;
@@ -196,8 +200,6 @@ int main() {
 
      //Start the game loop
     while (app.isOpen()){
-    
-       
        
         //Process events
         Event event{};
@@ -214,28 +216,29 @@ int main() {
 
         int x = mainMenu.MainMenuPressed();
         Vector2i mousePos = Mouse::getPosition(app);
-       // cout << mousePos.x << "-" << mousePos.y << endl;
+       // std::cout << mousePos.x << "-" << mousePos.y << endl;
         
         if (Mouse::isButtonPressed(Mouse::Left) && mousePos.x > 390 && mousePos.x < 565 && mousePos.y > 700 && mousePos.y < 850) {
-            cout << "YESY" << endl;
+            std::cout << "YESY" << endl;
             x = 0;
+            sprite.setPosition(playerObject.xpos, playerObject.ypos);
 
         }
         if (Mouse::isButtonPressed(Mouse::Left) && mousePos.x > 585 && mousePos.x < 760 && mousePos.y > 700 && mousePos.y < 850) {
-            cout << "YESY" << endl;
+            std::cout << "YESY" << endl;
             x = 1;
             
 
         }
         if (Mouse::isButtonPressed(Mouse::Left) && mousePos.x > 770 && mousePos.x < 950 && mousePos.y > 700 && mousePos.y < 850) {
-            cout << "YESY" << endl;
+            std::cout << "YESY" << endl;
             x = 2;
             
 
         }
 
         if (Mouse::isButtonPressed(Mouse::Left) && mousePos.x > 970 && mousePos.x < 1150 && mousePos.y > 700 && mousePos.y < 850) {
-            cout << "YESY" << endl;
+            std::cout << "YESY" << endl;
             x = 3;
 
 
@@ -243,22 +246,32 @@ int main() {
 
         
         
-                //cout << x << endl;
+                //std::cout << x << endl;
                 //Play
                 if (x == 0)
                 {
                     app.close();
-                    RenderWindow PLAY(VideoMode(windowWidth, windowHeight), "SPACE MAN GAME THINGY");
+                    playerObject.restart(true);
+                    platforms[0].xpos = 500;
+                    platforms[0].ypos = 400;
+                    platforms[1].xpos = 800;
+                    platforms[1].ypos = 400;
+                    
+                    RenderWindow PLAY(VideoMode(windowWidth, windowHeight), "Tiberius Station");
+                    PLAY.setFramerateLimit(60);
                     if (MusicPlay == true) {
+
                         level1.play();
                     }
                     
                     while (PLAY.isOpen()) {
                         Event aevent;
                         while (PLAY.pollEvent(aevent)) {
+                            int diffx = (playerObject.xpos + 25) - (enemyObject.xpos + 30);
+                            int diffy = (playerObject.ypos + 25) - (enemyObject.ypos + 25);
                             if (aevent.type == Event::Closed) {
                                 playerObject.xpos = 0;
-                                playerObject.ypos = 0;
+                                playerObject.ypos = 500;
                                 playerObject.yvel = 1;
                                 playerObject.xvel = 0;
                                 level1.stop();
@@ -267,11 +280,14 @@ int main() {
                                 app.create(VideoMode(windowWidthX, windowHeightX), "Platformer");
                                 
                                 PLAY.close();
+                               
                             }
+                            cout << diffx << endl;
+                            cout << diffy<< endl;
                             if (aevent.type == Event::KeyPressed) {
-                                if (aevent.key.code == Keyboard::Escape) {
+                                if ((aevent.key.code == Keyboard::Escape) || ((-25 < diffx) && (diffx<25) && (diffy<25)&&(-25 < diffy))) {
                                     playerObject.xpos = 0;
-                                    playerObject.ypos = 0;
+                                    playerObject.ypos = 550;
                                     playerObject.yvel = 1;
                                     playerObject.xvel = 0;
                                     level1.stop();
@@ -288,11 +304,51 @@ int main() {
                         //ABOUT.close();
                         //Play.clear();
                         //Play.display();
-                        PLAY.draw(Pbackground);
-                        PLAY.draw(sprite);
-                        //animations
-                        //move right
+                        sf::RectangleShape background(sf::Vector2f(5000, 5000));
+                        background.setFillColor(sf::Color(50, 50, 50));
+                        background.setPosition(sf::Vector2f(-2000, -1000));
 
+                        PLAY.draw(background);
+                        PLAY.draw(Pbackground);
+                        
+                        PLAY.draw(sprite);
+                        for (int i = 0; i < 2; ++i) {
+                            sf::RectangleShape platform(sf::Vector2f(platforms[i].sizex, platforms[i].sizey));
+                            platform.setPosition(platforms[i].xpos, platforms[i].ypos);
+                            PLAY.draw(platform);
+                        }
+                        enemysprite.setPosition(enemyObject.xpos, enemyObject.ypos);
+                        PLAY.draw(enemysprite);
+                        
+                        enemyObject.update();
+                        enemyObject.nearby(playerObject.xpos,playerObject.ypos);
+
+                        view2.setCenter(sf::Vector2f((playerObject.xpos), (playerObject.ypos)));
+                        PLAY.setView(view2);
+
+                       
+
+                        //collision
+                        for (int i = 0; i < 2; ++i) {
+                            if ((platforms[i].xpos + platforms[i].sizex > playerObject.xpos) && ((platforms[i].xpos) < playerObject.xpos + 50) && ((playerObject.ypos + 50) < platforms[i].ypos) && (playerObject.ypos + 50) > platforms[i].ypos - 10) {
+                                playerObject.tcollision = true;
+                                cout << "sus";
+                                goto collides;
+
+                            }
+                            else
+                            {
+                                playerObject.tcollision = false;
+                            }
+
+                        }
+                        collides:
+
+                        
+
+
+                        //animations
+                       //move right
                         if (playerObject.xvel > 0 && playerObject.yvel == 0) {
                             if (clock.getElapsedTime().asSeconds() > 0.2f) {
                                 if (rectSourceSprite.left == 200)
@@ -318,20 +374,20 @@ int main() {
                         }
 
                         //stand still
-                        if ((playerObject.yvel == 0.00) && (playerObject.xvel == 0.00) && (playerObject.playerFaceLeft)) {
+                        if ((playerObject.yvel == 0.00) && (playerObject.xvel == 0.00) && (playerObject.FaceLeft)) {
                             rectSourceSprite2.left = 0;
                             sprite.setTextureRect(rectSourceSprite2);
                             clock.restart();
                         }
 
-                        if (playerObject.yvel == 0.00 && playerObject.xvel == 0.00 && (!playerObject.playerFaceLeft)) {
+                        if (playerObject.yvel == 0.00 && playerObject.xvel == 0.00 && (!playerObject.FaceLeft)) {
                             rectSourceSprite.left = 0;
                             sprite.setTextureRect(rectSourceSprite);
                             clock.restart();
                         }
 
                         //jump
-                        if (playerObject.yvel > 0 && playerObject.playerFaceLeft || playerObject.yvel < 0 && playerObject.playerFaceLeft) {
+                        if (playerObject.yvel > 0 && playerObject.FaceLeft || playerObject.yvel < 0 && playerObject.FaceLeft) {
                             if (clock.getElapsedTime().asSeconds() > 0.3f) {
                                 if (rectSourceSprite3.left != 100)
                                     rectSourceSprite3.left += 50;
@@ -340,7 +396,7 @@ int main() {
                             }
                         }
 
-                        if (playerObject.yvel > 0.00 && !playerObject.playerFaceLeft || playerObject.yvel < 0 && !playerObject.playerFaceLeft) {
+                        if (playerObject.yvel > 0.00 && !playerObject.FaceLeft || playerObject.yvel < 0 && !playerObject.FaceLeft) {
                             if (clock.getElapsedTime().asSeconds() > 0.3f) {
                                 if (rectSourceSprite4.left != 100)
                                     rectSourceSprite4.left += 50;
@@ -354,17 +410,18 @@ int main() {
                             rectSourceSprite4.left = 0;
                         }
                         if (Keyboard::isKeyPressed(Keyboard::Space) && playerObject.yvel == 0 && SEPlay == true) {
+                            playerUp = true;
                             jump.play();
                         }
                         if (Keyboard::isKeyPressed(Keyboard::Right)) playerRight = true;
                         if (Keyboard::isKeyPressed(Keyboard::Left)) playerLeft = true;
-                        if (Keyboard::isKeyPressed(Keyboard::Space) && playerObject.yvel < 0.5) playerUp = true;
+                        if (Keyboard::isKeyPressed(Keyboard::Space) && (playerObject.CanJump = true)) playerUp = true;
                         if (Keyboard::isKeyPressed(Keyboard::Down)) playerDown = true;
                         if (!(Keyboard::isKeyPressed(Keyboard::Down))) playerDown = false;
                         if (!(Keyboard::isKeyPressed(Keyboard::Space))) playerUp = false;
                         if (!(Keyboard::isKeyPressed(Keyboard::Left))) playerLeft = false;
                         if (!(Keyboard::isKeyPressed(Keyboard::Right))) playerRight = false;
-                        sprite.move(Vector2f(playerObject.xvel, playerObject.yvel));
+                        sprite.setPosition(playerObject.xpos, playerObject.ypos);
                         PLAY.display();
                         playerObject.update(playerUp, playerDown, playerRight, playerLeft);
                     }
@@ -392,13 +449,11 @@ int main() {
                             }
 
                             Vector2i mousePos = Mouse::getPosition(LOAD);
-                            cout << mousePos.x << "-" << mousePos.y << endl;
 
                             LOAD.clear();
                             LOAD.draw(Load);
 
                             if (mousePos.x > 1281 && mousePos.x < 1496 && mousePos.y > 737 && mousePos.y < 837) {
-                                cout << "awooofa";
                                 LOAD.draw(Load1);
                             }
 
@@ -422,9 +477,9 @@ int main() {
                 //Options
                 if (x == 2) {
                     app.close();
-                    cout << fullscreen << endl;
+                    std::cout << fullscreen << endl;
                     
-                    cout << "Options" << endl;
+                    std::cout << "Options" << endl;
                     RenderWindow OPTIONS(VideoMode(windowWidth, windowHeight), "OPTIONS");
                     
 
@@ -446,13 +501,13 @@ int main() {
                         }
                         int x = mainMenu.MainMenuPressed();
                         Vector2i mousePos = Mouse::getPosition(OPTIONS);
-                        cout << mousePos.x << "-" << mousePos.y << endl;
+                        std::cout << mousePos.x << "-" << mousePos.y << endl;
 
                         //FULLSCREEN
                         if (Mouse::isButtonPressed(Mouse::Left) && mousePos.x > 1194 && mousePos.x < 1262 && mousePos.y > 186 && mousePos.y < 258) {
                             Time elapsed1 = clock.getElapsedTime();
                             if (elapsed1.asMilliseconds() > 100) {
-                                cout << "CLICK" << endl;
+                                std::cout << "CLICK" << endl;
                                 fullscreen += 1;
 
                                 
@@ -464,7 +519,7 @@ int main() {
                         if (Mouse::isButtonPressed(Mouse::Left) && mousePos.x > 1194 && mousePos.x < 1262 && mousePos.y > 335 && mousePos.y < 405) {
                             Time elapsed1 = clock.getElapsedTime();
                             if (elapsed1.asMilliseconds() > 100) {
-                                cout << "CLICK" << endl;
+                                std::cout << "CLICK" << endl;
                                 music += 1;
 
 
@@ -477,7 +532,7 @@ int main() {
                         if (Mouse::isButtonPressed(Mouse::Left) && mousePos.x > 1194 && mousePos.x < 1262 && mousePos.y > 477 && mousePos.y < 546) {
                             Time elapsed1 = clock.getElapsedTime();
                             if (elapsed1.asMilliseconds() > 100) {
-                                cout << "CLICK" << endl;
+                                std::cout << "CLICK" << endl;
                                 SE += 1;
 
 
@@ -513,7 +568,7 @@ int main() {
                            
                             
                             
-                            cout << windowWidth << windowHeight << endl;
+                            std::cout << windowWidth << windowHeight << endl;
                            
 
                         }
@@ -550,15 +605,15 @@ int main() {
         }
         if (mousePos.x > 585 && mousePos.x < 760 && mousePos.y > 700 && mousePos.y < 850) {
             app.draw(Lbackground);
-            cout << "YES" << endl;
+            std::cout << "YES" << endl;
         }
         if (mousePos.x > 770 && mousePos.x < 950 && mousePos.y > 700 && mousePos.y < 850) {
             app.draw(Obackground);
-            cout << "YES" << endl;
+            std::cout << "YES" << endl;
         }
         if (mousePos.x > 970 && mousePos.x < 1150 && mousePos.y > 700 && mousePos.y < 850) {
             app.draw(Ebackground);
-            cout << "YES" << endl;
+            std::cout << "YES" << endl;
         }
 
         if (!((mousePos.x > 390 && mousePos.x < 565 && mousePos.y > 700 && mousePos.y < 850) || mousePos.x > 585 && mousePos.x < 760 && mousePos.y > 700 && mousePos.y < 850 || mousePos.x > 770 && mousePos.x < 950 && mousePos.y > 700 && mousePos.y < 850 || mousePos.x > 970 && mousePos.x < 1150 && mousePos.y > 700 && mousePos.y < 850)) {
