@@ -17,7 +17,7 @@ Worked on extensively, the project relies on the SFML library to work.
   <ul><li>Custom drawn enemy sprite</li></ul>
 <li>Interactive platform<li>
   <ul><li>Able to collide with platforms and enemies</li></ul>
-  
+  </ul>
 # How to run the Game 
   
 To be able to see the graphics and hear the audio you will need to install the SFML library 
@@ -37,3 +37,10 @@ Additional Include Directories And change the text in the text box area to the f
   
  So that it matches the location of your SFML\include file 
 ![image](https://user-images.githubusercontent.com/92301718/170739613-ea4127f6-ad0f-4cdf-a197-067b64c03e60.png)
+  
+# Step Five: Locate Linker General
+  Next you are going to want to locate additional library directories and paste the following:
+  
+  C:\SFML-2.5.1\lib;%(AdditionalLibraryDirectories)
+  
+  Similar to the include directory section, you are going to want this to match the location of your SFML\lib folder
