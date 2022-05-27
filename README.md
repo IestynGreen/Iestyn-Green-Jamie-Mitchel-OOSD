@@ -20,8 +20,19 @@ Worked on extensively, the project relies on the SFML library to work.
   </ul>
   
 # How to run the Game 
-  
-To be able to see the graphics and hear the audio you will need to install the SFML library 
+To be able to run the game you must open the exe file which we uploaded on moodle, which can also be found here. 
+To do this you must open the SFMLx64 file, then open the SPACE MAN GAME THINGY folder, then double click on the SFMLx64 exe file. 
+
+#####################################################################################################
+
+<b>(We originally included the tutorial below as a method of demonstrating to eachother how to get SFML to work)
+
+  ----->You DO NOT need to follow this if the executable file works successfully</b><------
+
+#####################################################################################################
+
+If this is unsuccessful then you can also attempt to install SFML which we have demonstrated below:
+
 # Step One: Download SFML 
   # (https://www.sfml-dev.org/download/sfml/2.5.1/) 
 You can download this from the SFML website, or we have included it in this GitHub. After downloading the latest 64 bit version. 
