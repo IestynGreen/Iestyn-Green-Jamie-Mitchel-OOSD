@@ -18,6 +18,7 @@ Worked on extensively, the project relies on the SFML library to work.
 <li>Interactive platform<li>
   <ul><li>Able to collide with platforms and enemies</li></ul>
   </ul>
+  
 # How to run the Game 
   
 To be able to see the graphics and hear the audio you will need to install the SFML library 
