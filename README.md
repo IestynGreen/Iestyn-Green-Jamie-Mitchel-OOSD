@@ -45,3 +45,6 @@ Additional Include Directories And change the text in the text box area to the f
   C:\SFML-2.5.1\lib;%(AdditionalLibraryDirectories)
   
   Similar to the include directory section, you are going to want this to match the location of your SFML\lib folder
+  
+  ![image](https://user-images.githubusercontent.com/92301718/170766619-1324fb3f-91bd-4951-8548-ea6c2cc2e393.png)
+
