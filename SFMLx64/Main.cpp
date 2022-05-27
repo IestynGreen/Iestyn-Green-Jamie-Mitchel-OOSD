@@ -10,18 +10,10 @@
 #include "enemyClass.h"
 
 
-//TODO LIST
-//World map assets
-//Make the ave button work in options
-//Make Load assets
-//Make a collidable class (Enemy)
-//Make the platform
-//Make a start and end to each level (maybe draw flag assset or something)
 
 
 
-
-
+//defnie window size
 int windowWidth = 1536;
 int windowHeight = 865;
 
@@ -29,7 +21,7 @@ int windowHeight = 865;
 using namespace sf;
 using namespace std;
 
-
+//set window size
 int windowHeightX = windowHeight;
 int windowWidthX = windowWidth;
 sf::View view2(sf::Vector2f(350.f, 300.f), sf::Vector2f(1536.f, 865.f));
@@ -41,7 +33,7 @@ int main() {
    
     
     RenderWindow app(VideoMode(windowWidthX, windowHeightX), "Platformer");
-    //void sf::Window::setFramerateLimit(20);
+    
     
     
    
@@ -209,36 +201,34 @@ int main() {
         }
         
 
-        //direction
-       // if (playerObject.yvel > 1) {
-         //   fall.play();
-        //}
+        //Clickable areas on main menu
+      
 
         int x = mainMenu.MainMenuPressed();
         Vector2i mousePos = Mouse::getPosition(app);
-       // std::cout << mousePos.x << "-" << mousePos.y << endl;
+      
         
         if (Mouse::isButtonPressed(Mouse::Left) && mousePos.x > 390 && mousePos.x < 565 && mousePos.y > 700 && mousePos.y < 850) {
-            std::cout << "YESY" << endl;
-            x = 0;
+            
+            
             sprite.setPosition(playerObject.xpos, playerObject.ypos);
 
         }
         if (Mouse::isButtonPressed(Mouse::Left) && mousePos.x > 585 && mousePos.x < 760 && mousePos.y > 700 && mousePos.y < 850) {
-            std::cout << "YESY" << endl;
+            
             x = 1;
             
 
         }
         if (Mouse::isButtonPressed(Mouse::Left) && mousePos.x > 770 && mousePos.x < 950 && mousePos.y > 700 && mousePos.y < 850) {
-            std::cout << "YESY" << endl;
+           
             x = 2;
             
 
         }
 
         if (Mouse::isButtonPressed(Mouse::Left) && mousePos.x > 970 && mousePos.x < 1150 && mousePos.y > 700 && mousePos.y < 850) {
-            std::cout << "YESY" << endl;
+            
             x = 3;
 
 
@@ -246,7 +236,7 @@ int main() {
 
         
         
-                //std::cout << x << endl;
+                
                 //Play
                 if (x == 0)
                 {
@@ -300,10 +290,7 @@ int main() {
                                 }
                             }
                         }
-                        //OPTIONS.close();
-                        //ABOUT.close();
-                        //Play.clear();
-                        //Play.display();
+                        
                         sf::RectangleShape background(sf::Vector2f(5000, 5000));
                         background.setFillColor(sf::Color(50, 50, 50));
                         background.setPosition(sf::Vector2f(-2000, -1000));
@@ -625,9 +612,7 @@ int main() {
 
        
 
-        //Clear screen
-        //app.draw(BackgroundSprite);
-        //Update the window
+        
        
 
 
