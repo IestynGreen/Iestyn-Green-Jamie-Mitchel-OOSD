@@ -48,3 +48,13 @@ Additional Include Directories And change the text in the text box area to the f
   
   ![image](https://user-images.githubusercontent.com/92301718/170766619-1324fb3f-91bd-4951-8548-ea6c2cc2e393.png)
 
+# Step Six: Locat Linker Input
+
+The final step in the installation is to locate the linker input Additional Dependencies field location.
+Hopefully this will already be filled out, but if its not, then you will be required to enter the following:
+
+sfml-audio-d.lib;sfml-graphics-d.lib;sfml-network-d.lib;sfml-system-d.lib;sfml-window-d.lib;%(AdditionalDependencies)
+
+![image](https://user-images.githubusercontent.com/92301718/170767720-22e3e199-0546-4c27-bf86-9da79716d248.png)
+
+Once this is achieved then the set-up should be complete, so that when you run your code it should build correctly.-
