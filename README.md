@@ -27,6 +27,7 @@ To be able to see the graphics and hear the audio you will need to install the S
 You can download this from the SFML website, or we have included it in this GitHub. After downloading the latest 64 bit version. 
 Navigate the location of the folder. 
 # Step Two: Un-Zip SFML, preferably in your C Drive
+You can install this anywhere, however it is preferable that it is in your C drive, or at least in an accessible file location.
 ![image](https://user-images.githubusercontent.com/92301718/170739050-8d7d1ab8-cb8a-4aa8-83cb-8e5db40d8cfd.png)
 ![image](https://user-images.githubusercontent.com/92301718/170739155-95e76c52-6423-498c-9080-014427fd2ed0.png) 
 # Step Three: Locate Debugger properties 
